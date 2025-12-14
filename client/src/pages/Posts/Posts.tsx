@@ -23,13 +23,29 @@ export default function Posts() {
     if (savedLogin) setUserLogin(savedLogin);
     if (savedRole) setUserRole(savedRole);
 
+    
     fetch(`${API_URL}/posts`)
-      .then((res) => res.json())
-      .then(setPosts);
+      .then((res) => {
+        if (!res.ok) throw new Error("Failed to fetch posts");
+        return res.json();
+      })
+      .then((data) => setPosts(Array.isArray(data) ? data : []))
+      .catch((err) => {
+        console.error("Error fetching posts:", err);
+        setPosts([]);
+      });
 
+    
     fetch(`${API_URL}/users`)
-      .then((res) => res.json())
-      .then(setUsers);
+      .then((res) => {
+        if (!res.ok) throw new Error("Failed to fetch users");
+        return res.json();
+      })
+      .then((data) => setUsers(Array.isArray(data) ? data : []))
+      .catch((err) => {
+        console.error("Error fetching users:", err);
+        setUsers([]);
+      });
   }, []);
 
   const handleLoginSuccess = (login: string, role: string) => {
@@ -96,9 +112,11 @@ export default function Posts() {
           width="100%"
           alignItems="center"
         >
-          {posts.map((post) => (
-            <PostItem key={post.id} post={post} users={users} />
-          ))}
+          {Array.isArray(posts) && posts.length > 0 ? (
+            posts.map((post) => <PostItem key={post.id} post={post} users={users} />)
+          ) : (
+            <Text>No posts available</Text>
+          )}
         </Box>
 
         <LoginModal

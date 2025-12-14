@@ -1,41 +1,7 @@
-version: "3.9"
-
 services:
-  frontend:
-    build:
-      context: ./client
-      dockerfile: Dockerfile
-    ports:
-      - "5173:5173"
-    volumes:
-      - ./client:/app
-      - /app/node_modules
-    environment:
-      - VITE_API_URL=http://localhost:5000
-    depends_on:
-      - server
-
-  server:
-    build:
-      context: ./server
-      dockerfile: Dockerfile
-    ports:
-      - "5000:5000"
-    volumes:
-      - ./server:/app
-      - /app/node_modules
-    environment:
-      - DB_HOST=db
-      - DB_USER=postgres
-      - DB_PASSWORD=postgres
-      - DB_NAME=mydb
-    depends_on:
-      - db
-
   db:
     image: postgres:17
-    ports:
-      - "5432:5432"
+    container_name: postgres
     environment:
       POSTGRES_DB: mydb
       POSTGRES_USER: postgres
@@ -43,6 +9,35 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
       - ./migrations/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "5432:5432"
+
+  server:
+    build: ./server
+    container_name: server
+    volumes:
+      - ./server:/app
+      - /app/node_modules
+    environment:
+      DB_HOST: db
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      DB_NAME: mydb
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+
+  client:
+    build: ./client
+    container_name: client
+    volumes:
+      - ./client:/app
+      - /app/node_modules
+    ports:
+      - "5173:5173"
+    depends_on:
+      - server
 
 volumes:
   pgdata:
