@@ -137,9 +137,7 @@ export default function UserModal({
 
         <HStack mt={4} justifyContent="flex-end">
           <Button onClick={onClose}>Cancel</Button>
-          <Button colorScheme="teal" onClick={saveUser}>
-            {user ? "Update" : "Add"}
-          </Button>
+          <Button onClick={saveUser}>{user ? "Update" : "Add"}</Button>
         </HStack>
       </Box>
     </Box>

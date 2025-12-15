@@ -113,11 +113,13 @@ export default function LoginModal({
           )}
         </Box>
 
-        <Button colorScheme="teal" mb={2} onClick={handleLogin}>
+        <Button textTransform={"uppercase"} mb={2} onClick={handleLogin}>
           Sign In
         </Button>
 
-        <Button onClick={onClose}>Cancel</Button>
+        <Button textTransform={"uppercase"} onClick={onClose}>
+          Cancel
+        </Button>
       </Box>
     </Box>
   );

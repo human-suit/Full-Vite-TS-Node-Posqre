@@ -23,7 +23,6 @@ export default function Posts() {
     if (savedLogin) setUserLogin(savedLogin);
     if (savedRole) setUserRole(savedRole);
 
-    
     fetch(`${API_URL}/posts`)
       .then((res) => {
         if (!res.ok) throw new Error("Failed to fetch posts");
@@ -35,7 +34,6 @@ export default function Posts() {
         setPosts([]);
       });
 
-    
     fetch(`${API_URL}/users`)
       .then((res) => {
         if (!res.ok) throw new Error("Failed to fetch users");
@@ -85,7 +83,14 @@ export default function Posts() {
         gap={6}
         mx="auto"
       >
-        <Heading textAlign="center">Posts NEWTICK</Heading>
+        <Heading
+          textAlign="center"
+          fontFamily="OpenSans, sans-serif"
+          fontWeight={600}
+          textTransform={"uppercase"}
+        >
+          Posts New
+        </Heading>
 
         {userLogin ? (
           <Box
@@ -95,12 +100,16 @@ export default function Posts() {
             alignItems="center"
           >
             <Text>Logged in as: {userLogin}</Text>
-            <Button colorScheme="red" onClick={handleLogout}>
-              Logout
-            </Button>
+            <Button onClick={handleLogout}>Logout</Button>
           </Box>
         ) : (
-          <Button width="100%" onClick={() => setLoginOpen(true)}>
+          <Button
+            fontFamily="OpenSans, sans-serif"
+            fontWeight={400}
+            width="100%"
+            bg={"black"}
+            onClick={() => setLoginOpen(true)}
+          >
             Login
           </Button>
         )}
@@ -113,7 +122,9 @@ export default function Posts() {
           alignItems="center"
         >
           {Array.isArray(posts) && posts.length > 0 ? (
-            posts.map((post) => <PostItem key={post.id} post={post} users={users} />)
+            posts.map((post) => (
+              <PostItem key={post.id} post={post} users={users} />
+            ))
           ) : (
             <Text>No posts available</Text>
           )}

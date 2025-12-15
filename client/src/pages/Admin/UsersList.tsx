@@ -19,13 +19,30 @@ export default function UsersList({ users, onDelete, onEdit }: UsersListProps) {
           width="300px"
           shadow="md"
         >
-          <Text fontWeight="bold">{u.login}</Text>
+          <Text fontWeight="bold">Login: {u.login}</Text>
           <Text mt={2}>Role: {u.role}</Text>
           <HStack mt={4} gap={2}>
-            <Button colorScheme="yellow" size="sm" onClick={() => onEdit(u)}>
+            <Button
+              bg={"black"}
+              _hover={{
+                bg: "white",
+                color: "black",
+              }}
+              size="sm"
+              onClick={() => onEdit(u)}
+            >
               Update
             </Button>
-            <Button colorScheme="red" size="sm" onClick={() => onDelete(u.id)}>
+            <Button
+              bg="black"
+              color="white"
+              size="sm"
+              onClick={() => onDelete(u.id)}
+              _hover={{
+                bg: "white",
+                color: "black",
+              }}
+            >
               Delete
             </Button>
           </HStack>

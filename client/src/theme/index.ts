@@ -57,10 +57,14 @@ const config = defineConfig({
           },
         },
       },
+
       fonts: {
-        body: { value: "IBM Plex Sans, sans-serif" },
-        heading: { value: "IBM Plex Sans, sans-serif" },
+        body: { value: "IBMPlexSans, sans-serif" },
+        heading: { value: "IBMPlexSans, sans-serif" },
+        openSans: { value: "OpenSans, sans-serif" },
+        poppins: { value: "Poppins, sans-serif" },
       },
+
       fontSizes: {
         xl: { value: "32px" },
         headingLg: { value: "32px" },

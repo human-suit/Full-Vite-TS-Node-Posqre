@@ -1,6 +1,7 @@
-import { useState, useMemo } from "react";
-import { Box, Button, Text } from "@chakra-ui/react";
+import { useState, useMemo, useRef, useEffect } from "react";
+import { Box, Button, Flex, Text } from "@chakra-ui/react";
 import type { Post, User } from "../../shared/types";
+import "../../shared/styles/reset.scss";
 
 interface PostItemProps {
   post: Post;
@@ -9,8 +10,9 @@ interface PostItemProps {
 
 export default function PostItem({ post, users = [] }: PostItemProps) {
   const [expanded, setExpanded] = useState(false);
-  console.log(post.date);
-  // Находим login автора
+  const [isOverflowing, setIsOverflowing] = useState(false);
+  const textRef = useRef<HTMLDivElement>(null);
+
   const authorLogin = useMemo(() => {
     if (!users || users.length === 0) return "Unknown";
     const author = users.find(
@@ -19,7 +21,7 @@ export default function PostItem({ post, users = [] }: PostItemProps) {
     return author ? author.login : "Unknown";
   }, [users, post.author]);
 
-  // Разделяем текст и картинки
+  // Разделяем текст и изображения
   const tempDiv = document.createElement("div");
   tempDiv.innerHTML = post.description || "";
 
@@ -30,7 +32,13 @@ export default function PostItem({ post, users = [] }: PostItemProps) {
   tempDiv.querySelectorAll("img").forEach((img) => img.remove());
   const textContent = tempDiv.innerHTML;
 
-  // Форматируем дату
+  useEffect(() => {
+    if (textRef.current) {
+      const el = textRef.current;
+      setIsOverflowing(el.scrollHeight > el.clientHeight);
+    }
+  }, [textContent]);
+
   const formattedDate = post.date
     ? new Date(post.date).toLocaleString("ru-RU", {
         day: "2-digit",
@@ -50,37 +58,43 @@ export default function PostItem({ post, users = [] }: PostItemProps) {
       p={4}
       color="white"
       bg="#3f3e3eff"
+      fontFamily="OpenSans, sans-serif"
     >
-      <Text fontWeight="bold" mb={1}>
-        Автор поста: {authorLogin}
-      </Text>
-
-      <Text fontWeight="bold" mb={2}>
-        Заголовок: {post.title}
+      <Text fontWeight="500" mb={2}>
+        Заголовок:{" "}
+        <Text as="span" fontWeight="400">
+          {post.title}
+        </Text>
       </Text>
 
       <Box
+        ref={textRef}
         color="gray.200"
         maxH={expanded ? "none" : "60px"}
         overflow="hidden"
         mb={2}
       >
-        <div>
-          <Text mb={2}>Описание:</Text>
-        </div>
-        <div dangerouslySetInnerHTML={{ __html: textContent }} />
+        <Text mb={2} fontWeight="500">
+          Описание:
+        </Text>
+
+        <Box
+          dangerouslySetInnerHTML={{ __html: textContent }}
+          color="sweetpet.gray.300"
+          fontWeight={400}
+        />
       </Box>
 
-      {textContent.length > 100 && (
+      {isOverflowing && (
         <Button
           size="sm"
-          variant="ghost"
-          colorScheme="teal"
           color="white"
           mb={2}
           onClick={() => setExpanded(!expanded)}
+          fontFamily="Poppins, sans-serif"
+          fontWeight="500"
         >
-          {expanded ? "Свернуть" : "Показать ещё"}
+          {expanded ? "Свернуть" : "Развернуть"}
         </Button>
       )}
 
@@ -94,12 +108,17 @@ export default function PostItem({ post, users = [] }: PostItemProps) {
         </Box>
       ))}
 
-      {/* Дата внизу */}
-      {formattedDate && (
-        <Text mt={2} fontSize="sm" color="gray.400" textAlign="right">
-          {formattedDate}
+      <Flex justifyContent="space-between">
+        <Text mt={1} fontWeight="400" fontFamily="IBMPlexSans, sans-serif">
+          Автор поста: {authorLogin}
         </Text>
-      )}
+
+        {formattedDate && (
+          <Text mt={2} fontSize="sm" color="gray.400" textAlign="right">
+            {formattedDate}
+          </Text>
+        )}
+      </Flex>
     </Box>
   );
 }

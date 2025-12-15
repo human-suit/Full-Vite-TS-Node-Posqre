@@ -62,7 +62,7 @@ export default function Admin() {
     <Flex height="100vh">
       {/* Sidebar */}
       <VStack width="250px" bg="gray.800" color="white" padding="20px" gap={4}>
-        <Text fontSize="2xl" fontWeight="bold">
+        <Text fontSize="2xl" textTransform={"uppercase"} fontWeight="bold">
           Admin Panel
         </Text>
         <Button
@@ -103,7 +103,11 @@ export default function Admin() {
             {tab === "users" && (
               <>
                 <Button
-                  colorScheme="teal"
+                  bg={"black"}
+                  _hover={{
+                    bg: "white",
+                    color: "black",
+                  }}
                   onClick={() => {
                     setEditUser(null);
                     setUserModalOpen(true);
@@ -112,7 +116,11 @@ export default function Admin() {
                   Add User
                 </Button>
                 <Button
-                  colorScheme="blue"
+                  bg={"black"}
+                  _hover={{
+                    bg: "white",
+                    color: "black",
+                  }}
                   onClick={() => setUserReadModalOpen(true)}
                 >
                   Read All Users
@@ -122,7 +130,11 @@ export default function Admin() {
             {tab === "posts" && (
               <>
                 <Button
-                  colorScheme="teal"
+                  bg={"black"}
+                  _hover={{
+                    bg: "white",
+                    color: "black",
+                  }}
                   onClick={() => {
                     setEditPost(null);
                     setPostModalOpen(true);
@@ -131,7 +143,11 @@ export default function Admin() {
                   Add Post
                 </Button>
                 <Button
-                  colorScheme="blue"
+                  bg={"black"}
+                  _hover={{
+                    bg: "white",
+                    color: "black",
+                  }}
                   onClick={() => setPostReadModalOpen(true)}
                 >
                   Read All Posts

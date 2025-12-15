@@ -188,6 +188,12 @@ export default function PostModal({
             action={() => editor.chain().focus().toggleBold().run()}
             isActive={editor.isActive("bold")}
           />
+          <ToolButton
+            label="Italic"
+            icon={<FaItalic />}
+            action={() => editor.chain().focus().toggleItalic().run()}
+            isActive={editor.isActive("italic")}
+          />
 
           <ToolButton
             label="Underline"
@@ -245,9 +251,7 @@ export default function PostModal({
 
         <HStack mt={4} justifyContent="flex-end">
           <Button onClick={onClose}>Cancel</Button>
-          <Button colorScheme="teal" onClick={savePost}>
-            {post ? "Update" : "Save"}
-          </Button>
+          <Button onClick={savePost}>{post ? "Update" : "Save"}</Button>
         </HStack>
       </Box>
     </Box>

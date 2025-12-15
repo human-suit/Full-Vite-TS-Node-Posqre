@@ -1,14 +1,54 @@
+/* ===== OpenSans Condensed ===== */
+
 @font-face {
-  font-family: 'OpenSans';
+  font-family: "OpenSans";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../assets/fonts/OpenSans_Condensed-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "OpenSans";
   font-style: normal;
   font-weight: 600;
   font-display: swap;
-  src: url('../assets/fonts/OpenSans_Condensed-SemiBold.ttf') format('ttf');
+  src: url("../assets/fonts/OpenSans_Condensed-SemiBold.ttf") format("truetype");
 }
+
+/* ===== IBM Plex Sans Condensed ===== */
+
 @font-face {
-  font-family: 'OpenSans';
+  font-family: "IBMPlexSans";
   font-style: normal;
   font-weight: 500;
   font-display: swap;
-  src: url('../assets/fonts/OpenSans_Condensed-Medium.ttf') format('ttf');
+  src: url("../assets/fonts/IBMPlexSans_Condensed-Medium.ttf")
+    format("truetype");
+}
+
+@font-face {
+  font-family: "IBMPlexSans";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("../assets/fonts/IBMPlexSans_Condensed-Bold.ttf") format("truetype");
+}
+
+/* ===== Poppins ===== */
+
+@font-face {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("../assets/fonts/Poppins-Medium.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("../assets/fonts/Poppins-Bold.ttf") format("truetype");
 }
