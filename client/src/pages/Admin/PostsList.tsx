@@ -27,6 +27,7 @@ export default function PostsList({ posts, onDelete, onEdit }: PostsListProps) {
           <Text fontWeight="bold">Title: {p.title}</Text>
 
           <Box
+            className="tiptap"
             mt={2}
             flex="1"
             overflowY="auto"

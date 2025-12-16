@@ -35,12 +35,14 @@ router.get("/:id", async (req, res) => {
 
 // --- CREATE post ---
 router.post("/", async (req, res) => {
-  const { author, title, description } = req.body;
+  const { author, title, description, date } = req.body; // date — ISO string
 
   try {
     const result = await pool.query(
-      "INSERT INTO posts (author, title, description) VALUES ($1, $2, $3) RETURNING id, author, title, description",
-      [author, title, description]
+      `INSERT INTO posts (author, title, description, date)
+       VALUES ($1, $2, $3, $4)
+       RETURNING id, author, title, description, date`,
+      [author, title, description, date]
     );
 
     res.json(result.rows[0]);
@@ -53,12 +55,15 @@ router.post("/", async (req, res) => {
 // --- UPDATE post ---
 router.put("/:id", async (req, res) => {
   const { id } = req.params;
-  const { author, title, description } = req.body;
+  const { author, title, description, date } = req.body;
 
   try {
     const result = await pool.query(
-      "UPDATE posts SET author = $1, title = $2, description = $3 WHERE id = $4 RETURNING id, author, title, description",
-      [author, title, description, id]
+      `UPDATE posts
+       SET author = $1, title = $2, description = $3, date = $4
+       WHERE id = $5
+       RETURNING id, author, title, description, date`,
+      [author, title, description, date, id]
     );
 
     res.json(result.rows[0]);

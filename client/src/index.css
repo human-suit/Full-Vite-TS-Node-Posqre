@@ -14,10 +14,39 @@ body {
   min-width: 320px;
   min-height: 100vh;
 }
+
 .tiptap:focus {
   outline: none !important;
   box-shadow: none !important;
 }
+
+/* Добавляем курсив */
+.tiptap em {
+  font-style: italic;
+}
+
+.tiptap ul {
+  list-style-type: disc; /* стандартные буллеты */
+  padding-left: 1.5em;
+  margin: 0.5em 0;
+}
+
+.tiptap ol {
+  list-style-type: decimal; /* нумерованный список */
+  padding-left: 1.5em;
+  margin: 0.5em 0;
+}
+
+.tiptap li {
+  display: list-item;
+  margin: 0.25em 0;
+}
+
+.tiptap li p {
+  display: inline;
+  margin: 0;
+}
+
 h1 {
   font-size: 3.2em;
   line-height: 1.1;

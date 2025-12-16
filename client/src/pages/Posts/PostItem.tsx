@@ -79,6 +79,7 @@ export default function PostItem({ post, users = [] }: PostItemProps) {
         </Text>
 
         <Box
+          className="tiptap"
           dangerouslySetInnerHTML={{ __html: textContent }}
           color="sweetpet.gray.300"
           fontWeight={400}
