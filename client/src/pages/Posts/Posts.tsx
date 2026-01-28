@@ -89,7 +89,7 @@ export default function Posts() {
           fontWeight={600}
           textTransform={"uppercase"}
         >
-          Posts New
+          Posts New {userRole ?? "гость"}
         </Heading>
 
         {userLogin ? (
